@@ -316,6 +316,15 @@ int main(int argc, char *argv[]) {
                                        VTE_CURSOR_BLINK_OFF);
   }
 
+  /* Set font size */
+  PangoFontDescription *desc =
+      pango_font_description_copy(vte_terminal_get_font(terminal));
+  g_assert(desc != NULL);
+
+  pango_font_description_set_size(desc, 8 * PANGO_SCALE);
+  vte_terminal_set_font(terminal, desc);
+  pango_font_description_free(desc);
+
   /* Connect some signals */
   g_signal_connect(window, "delete-event", gtk_main_quit, NULL);
   // g_signal_connect(window, "key_press_event", G_CALLBACK(on_key_press),
